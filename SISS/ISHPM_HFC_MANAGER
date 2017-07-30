@@ -1,0 +1,1266 @@
+*&---------------------------------------------------------------------*
+*& Report  /SISS/ISHPM_HFC_MANAGER
+*&
+*&---------------------------------------------------------------------*
+*                      ____    _                   _   _    ____   _____
+*  _ __ ___    _   _  / ___|  (_)  ___   ___      | | | |  / ___| |  ___|
+* | '_ ` _ \  | | | | \___ \  | | / __| / __|     | |_| | | |     | |_
+* | | | | | | | |_| |  ___) | | | \__ \ \__ \     |  _  | | |___  |  _|
+* |_| |_| |_|  \__, | |____/  |_| |___/ |___/     |_| |_|  \____| |_|
+*              |___/
+
+INCLUDE /SISS/ISHPM_HFC_MANAGER_TOP             .    " global Data
+
+
+*  ____                                              _
+* |  _ \    __ _   _ __    __ _   _ __ ___     ___  | |_   _ __    ___    ___
+* | |_) |  / _` | | '__|  / _` | | '_ ` _ \   / _ \ | __| | '__|  / _ \  / __|
+* |  __/  | (_| | | |    | (_| | | | | | | | |  __/ | |_  | |    | (_) | \__ \
+* |_|      \__,_| |_|     \__,_| |_| |_| |_|  \___|  \__| |_|     \___/  |___/
+*
+*
+***************
+** Actividad **
+***************
+
+PARAMETERS:
+HFCAC    AS LISTBOX TYPE /SISS/HFCAC VISIBLE LENGTH 36 USER-COMMAND FCODE.
+
+************************
+** Datos organizacion **
+************************
+SELECTION-SCREEN BEGIN OF BLOCK H WITH FRAME TITLE TEXT-001.
+PARAMETERS:
+  EINRI TYPE EINRI MATCHCODE OBJECT H_TN01,
+  SEDE  TYPE /SISS/COD_SEDE MATCHCODE OBJECT /SISS/ISHPM_SEDES.
+SELECTION-SCREEN END OF BLOCK H.
+
+
+**************
+** Grupo  1 **
+**************
+SELECTION-SCREEN BEGIN OF BLOCK 1 WITH FRAME TITLE TEXT-002.
+PARAMETERS:
+  PATNR1   TYPE PATNR MODIF ID G1.
+SELECTION-SCREEN END OF BLOCK 1.
+
+**************
+** Grupo  2 **
+**************
+
+SELECTION-SCREEN BEGIN OF BLOCK 2 WITH FRAME TITLE TEXT-003.
+PARAMETERS:
+  FALNR2 TYPE FALNR MODIF ID G2,
+  ORGHI2 TYPE ISH_ORGHI MODIF ID G2,
+  ORGFA2 TYPE  NZUWFA MODIF ID G2,
+  ORGPF2 TYPE NZUWPF MODIF ID G2,
+  DOKNR2 TYPE DOKNR MODIF ID G2,
+  DOKAR2 TYPE DOKAR MODIF ID G2.
+SELECTION-SCREEN END OF BLOCK 2.
+
+**************
+** Grupo  3 **
+**************
+
+SELECTION-SCREEN BEGIN OF BLOCK 3 WITH FRAME TITLE TEXT-004.
+PARAMETERS:
+  NNAME3  TYPE NNAME_PAT MODIF ID G3,
+  VNAME3  TYPE VNAME_PAT MODIF ID G3,
+  GBNAM3  TYPE GBNAM MODIF ID G3,
+  GBDAV3  TYPE ISH_GBDATV MODIF ID G3,
+  GBDAB3  TYPE ISH_GBDATB MODIF ID G3,
+  GSCHL3  TYPE GSCHL MODIF ID G3,
+  RVNUM3  TYPE ISH_RVNUM MODIF ID G3,
+  EXTNR3  TYPE EXT_PATNR MODIF ID G3,
+  PASSNR3 TYPE ISH_PASSNR MODIF ID G3,
+  SUCHS3  TYPE ISH_SSTAND MODIF ID G3,
+  SUCHP3  TYPE ISH_SPHON MODIF ID G3.
+SELECTION-SCREEN END OF BLOCK 3.
+
+**************
+** Grupo  4 **
+**************
+
+SELECTION-SCREEN BEGIN OF BLOCK 4 WITH FRAME TITLE TEXT-005.
+PARAMETERS:
+  AUSBEGD4 TYPE  STATBEGDTA MODIF ID G4,
+  ORGID4   TYPE  ORGID MODIF ID G4,
+  ENTLTYP4 TYPE  ENTLEIHTYP MODIF ID G4,
+  ENTLEIH4 TYPE  ENTLEIHNR MODIF ID G4,
+  VERANTW4 TYPE  VERANTWORT MODIF ID G4,
+  ENTZW4   TYPE  ISH_ENTLZW MODIF ID G4,
+  DOKAR4   TYPE  DOKAR MODIF ID G4.
+SELECTION-SCREEN END OF BLOCK 4.
+
+**************
+** Grupo  5 **
+**************
+
+SELECTION-SCREEN BEGIN OF BLOCK 5 WITH FRAME TITLE TEXT-006.
+PARAMETERS:
+  LEIHDAT5 TYPE ISH_LEIDAT MODIF ID G5,
+  ENTLEND5 TYPE ISH_ENTLEN MODIF ID G5,
+  ENTLTYP5 TYPE ENTLEIHTYP MODIF ID G5,
+  ENTLEIH5 TYPE ENTLEIHNR MODIF ID G5,
+  ENTZW5   TYPE ISH_ENTLZW MODIF ID G5,
+  VERANTW5 TYPE VERANTWORT MODIF ID G5,
+  ENTTEXT5 TYPE TEXTENT MODIF ID G5.
+SELECTION-SCREEN END OF BLOCK 5.
+
+**************
+** Grupo  6 **
+**************
+
+SELECTION-SCREEN BEGIN OF BLOCK 6 WITH FRAME TITLE TEXT-007.
+PARAMETERS:
+  ARCHIV6 TYPE ARCHIV_ID MODIF ID G6,
+  DOKAR6  TYPE DOKAR MODIF ID G6.
+SELECTION-SCREEN END OF BLOCK 6.
+
+**************
+** Grupo  7 **
+**************
+
+SELECTION-SCREEN BEGIN OF BLOCK 7 WITH FRAME TITLE TEXT-008.
+PARAMETERS:
+  DOKAR7   TYPE DOKAR  MODIF ID G7,
+  DOKNR7   TYPE DOKNR MODIF ID G7,
+  ARCHIV7  TYPE ARCHIV_ID MODIF ID G7,
+  STANDOR7 TYPE ISH_ARCHST MODIF ID G7,
+  GBDAT7   TYPE RI_GBDAT MODIF ID G7,
+  ENTLTYP7 TYPE ENTLEIHTYP MODIF ID G7,
+  ENTLEIH7 TYPE ENTLEIHNR MODIF ID G7,
+  VERANTW7 TYPE VERANTWORT MODIF ID G7,
+  ENTZW7   TYPE ISH_ENTLZW MODIF ID G7,
+  STATUS7  TYPE ISH_LEISTA MODIF ID G7,
+  LEIHDAT7 TYPE ISH_LEIDAT MODIF ID G7,
+  ENTLEND7 TYPE ISH_ENTLEN MODIF ID G7.
+SELECTION-SCREEN END OF BLOCK 7.
+
+**************
+** Grupo  8 **
+**************
+
+SELECTION-SCREEN BEGIN OF BLOCK 8 WITH FRAME TITLE TEXT-009.
+PARAMETERS:
+  ORGFA8   TYPE NZUWFA MODIF ID G8,
+  ORGPF8   TYPE NZUWPF MODIF ID G8,
+  AUSBEGD8 TYPE STATBEGDTA MODIF ID G8.
+SELECTION-SCREEN END OF BLOCK 8.
+
+
+****************************************
+** Entrada Colectiva Numeros Historias**
+****************************************
+
+SELECTION-SCREEN BEGIN OF BLOCK 9 WITH FRAME TITLE TEXT-010.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC01 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC02 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC03 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC04 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC05 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC06 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC07 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC08 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC09 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN BEGIN OF LINE.
+SELECTION-SCREEN POSITION 1.
+PARAMETERS: DOC10 TYPE DOKNR MODIF ID COL.
+SELECTION-SCREEN END OF LINE.
+
+SELECTION-SCREEN END OF BLOCK 9.
+
+
+
+*  _____                          _
+* | ____| __   __   ___   _ __   | |_    ___    ___
+* |  _|   \ \ / /  / _ \ | '_ \  | __|  / _ \  / __|
+* | |___   \ V /  |  __/ | | | | | |_  | (_) | \__ \
+* |_____|   \_/    \___| |_| |_|  \__|  \___/  |___/
+*
+*  ____           _                        _     __
+* / ___|    ___  | |   ___    ___    ___  (_)   /_/    _ __
+* \___ \   / _ \ | |  / _ \  / __|  / __| | |  / _ \  | '_ \
+*  ___) | |  __/ | | |  __/ | (__  | (__  | | | (_) | | | | |
+* |____/   \___| |_|  \___|  \___|  \___| |_|  \___/  |_| |_|
+*
+
+
+INITIALIZATION.
+  V_REPID = SY-REPID.
+
+************************************************
+* llenar las actividades en la lista desplegable
+* a partir de la tabla de parametrizacion de
+* actividades y de roles para que el usuario
+* solo pueda ver las actividades que le corresponden
+*************************************************
+  NAME = 'HFCAC'.
+
+  DATA ACTIVITY TYPE /SISS/ISHPM_HFCA OCCURS 0 WITH HEADER LINE.
+
+  VALUE-KEY = ''.
+  VALUE-TEXT = ''.
+  APPEND VALUE TO LIST.
+
+  SELECT A~HFCAC A~ACTXT FROM /SISS/ISHPM_HFCA AS A
+  INNER JOIN /SISS/ISHPM_HFCR AS B
+  ON A~EINRI = B~EINRI AND
+     A~HFCAC = B~HFCAC
+  INNER JOIN AGR_USERS AS C
+  ON B~AGR_NAME = C~AGR_NAME
+  INTO CORRESPONDING FIELDS OF ACTIVITY
+  WHERE C~UNAME = SY-UNAME
+  GROUP BY A~HFCAC A~ACTXT
+  ORDER BY A~HFCAC.
+
+    CONCATENATE ACTIVITY-HFCAC '-' ACTIVITY-ACTXT INTO DATA(SAL) SEPARATED BY SPACE.
+    VALUE-KEY = ACTIVITY-HFCAC.
+    VALUE-TEXT = SAL.
+    APPEND VALUE TO LIST.
+
+  ENDSELECT.
+
+  CALL FUNCTION 'VRM_SET_VALUES'
+    EXPORTING
+      ID     = NAME
+      VALUES = LIST.
+
+
+AT SELECTION-SCREEN OUTPUT.
+
+***************************************
+* cada vez que se lance un evento en
+* la pantalla inicial verificar segun
+* la configuracion de la actividad
+* mostrar o esconder campos en
+* pantalla de seleccion
+**************************************
+
+  LOOP AT SCREEN.
+    IF SCREEN-GROUP1 = 'G1' OR
+       SCREEN-GROUP1 = 'G2' OR
+       SCREEN-GROUP1 = 'G3' OR
+       SCREEN-GROUP1 = 'G4' OR
+       SCREEN-GROUP1 = 'G5' OR
+       SCREEN-GROUP1 = 'G6' OR
+       SCREEN-GROUP1 = 'G7' OR
+       SCREEN-GROUP1 = 'G8' OR
+       SCREEN-GROUP1 = 'COL'.
+
+      SCREEN-INPUT = 0.
+      SCREEN-INVISIBLE = 1.
+      MODIFY SCREEN.
+    ENDIF.
+  ENDLOOP.
+
+  DATA CONFIG TYPE /SISS/ISHPM_HFCA.
+
+  SELECT SINGLE * FROM /SISS/ISHPM_HFCA
+    INTO CONFIG
+    WHERE HFCAC = HFCAC.
+
+  LOOP AT SCREEN.
+    IF SCREEN-GROUP1 = 'G1' AND CONFIG-SEARCH_GROUP1 = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+    IF SCREEN-GROUP1 = 'G2' AND CONFIG-SEARCH_GROUP2 = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+    IF SCREEN-GROUP1 = 'G3' AND CONFIG-SEARCH_GROUP3 = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+    IF SCREEN-GROUP1 = 'G4' AND CONFIG-SEARCH_GROUP4 = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+    IF SCREEN-GROUP1 = 'G5' AND CONFIG-SEARCH_GROUP5 = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+    IF SCREEN-GROUP1 = 'G6' AND CONFIG-SEARCH_GROUP6 = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+    IF SCREEN-GROUP1 = 'G7' AND CONFIG-SEARCH_GROUP7 = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+    IF SCREEN-GROUP1 = 'G8' AND CONFIG-SEARCH_GROUP7 = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+    IF SCREEN-GROUP1 = 'COL' AND CONFIG-COLLECTIVE = 'X'.
+      SCREEN-INPUT = 1.
+      SCREEN-INVISIBLE = 0.
+      MODIFY SCREEN.
+    ENDIF.
+
+
+  ENDLOOP.
+
+
+START-OF-SELECTION.
+
+*     _      _      __     __
+*    / \    | |     \ \   / /
+*   / _ \   | |      \ \ / /
+*  / ___ \  | |___    \ V /
+* /_/   \_\ |_____|    \_/
+*
+
+**************************
+* Revisar que los parametros
+* de entrada esten llenos
+* En caso contrario informat
+* al usuario que campos faltan
+* por llenar
+*************************
+
+  PERFORM SUB_CHECK_FIELD_COMPLETION
+  USING RC.
+
+  IF RC NE '0'.
+    RETURN.
+  ENDIF.
+
+**************************************
+* Validar si el usuario tiene acceso
+* a la actividad en el centro sanitaio
+* solicitado
+**************************************
+
+
+  CALL METHOD HFCC->SECURITY_CHECK
+    EXPORTING
+      EINRI  = EINRI
+      HFCAC  = HFCAC
+    IMPORTING
+      RESULT = RESULT.
+
+  IF RESULT-NUMBER NE '000'.
+    MESSAGE ID RESULT-ID TYPE RESULT-TYPE NUMBER RESULT-NUMBER WITH SY-UNAME HFCAC.
+  ENDIF.
+*********************************
+*Prepara el catalogo del ALV según la configuracion establecida
+**********************************
+  PERFORM SUB_PREPARE_FIELDCATALOG.
+
+********************************
+*Obtiene los datos segun la configuracion y la actividad
+*********************************
+  PERFORM SUB_SELECT_RECORD.
+
+**************************************
+* Modifica los resultados obtenidos
+* de la base de datos poniendo simbolos
+* e iconos de los status de los registros
+***************************************
+  PERFORM SUB_MODIFY_RECORDS.
+
+****************************************
+* Define el diseño principal del ALV
+***************************************
+  PERFORM SUB_DETERMINE_ALV_LAYOUT.
+
+****************************************
+* Define el orden de los registros
+***************************************
+  PERFORM SUB_DETERMINE_SORT_SEQUENCE.
+
+*************************************
+* Define la tabla de eventos del ALV
+************************************
+  PERFORM SUB_EVENTTAB_BUILD USING I_EVENTS.
+
+**************************************
+* Define el encabezado de la tabla
+******************************************
+  PERFORM SUB_COMMENT_BUILD USING I_LIST_TOP_OF_PAGE.
+
+**************************************
+* Inicia la aplicacion ALV
+**************************************
+  PERFORM SUB_SHOW_ALV_LIST.
+*  struct_layout-hotspot_fieldname  = 'X'.
+
+AT LINE-SELECTION.
+
+********************************
+* Procesamiento la hacer click
+* sobre un hotspot del ALV
+********************************
+  PERFORM SUB_HOTSPOT.
+
+
+*&---------------------------------------------------------------------*
+*&      Form  SUB_VARIANT_INIT
+*&---------------------------------------------------------------------*
+* Display default variant
+*----------------------------------------------------------------------*
+FORM SUB_VARIANT_INIT.
+  I_VARIANT1-REPORT = SY-REPID.
+
+* Search default variant for the report
+  CALL FUNCTION 'REUSE_ALV_VARIANT_DEFAULT_GET'
+    EXPORTING
+      I_SAVE     = 'A'
+    CHANGING
+      CS_VARIANT = I_VARIANT1
+    EXCEPTIONS
+      NOT_FOUND  = 2.
+* If default variant is found , use it as default.
+* Else , use the variant LAYOUT1.
+  IF SY-SUBRC = 0.
+    P_VAR = I_VARIANT1-VARIANT.
+  ELSE.
+    P_VAR = 'LAYOUT1'.
+  ENDIF.
+
+ENDFORM.                    " SUB_VARIANT_INIT
+
+*&---------------------------------------------------------------------*
+*&      Form  SUB_CHECK_PVAR
+*&---------------------------------------------------------------------*
+* Revisar si la variante existe
+*----------------------------------------------------------------------*
+FORM SUB_CHECK_PVAR.
+
+  IF NOT P_VAR IS INITIAL.
+    CLEAR I_VARIANT.
+    I_VARIANT-REPORT = SY-REPID.
+    I_VARIANT-VARIANT = P_VAR.
+    CALL FUNCTION 'REUSE_ALV_VARIANT_EXISTENCE'
+      EXPORTING
+        I_SAVE     = 'A'
+      CHANGING
+        CS_VARIANT = I_VARIANT.
+* Si la vaiante no existe sacar mensaje de error
+    IF SY-SUBRC NE 0 .
+      MESSAGE ID '/SISS/HFCMSG1' TYPE 'S' NUMBER '006' DISPLAY LIKE 'E' WITH P_VAR.
+    ELSE.
+* Si la variante existe usar la variante para poblar la estructura
+* I_VARIANT1 la cual se usa para exportar el parametro IS_VARIANT
+* en el modulo de funcion REUSE_ALV_GRID_DISPLAY
+      CLEAR I_VARIANT1.
+      MOVE P_VAR TO I_VARIANT1-VARIANT.
+      MOVE SY-REPID TO I_VARIANT1-REPORT.
+    ENDIF.
+  ELSE.
+    CLEAR I_VARIANT.
+  ENDIF.
+ENDFORM.                    " SUB_CHECK_PVAR
+
+*&---------------------------------------------------------------------*
+*&      Form  SUB_PREPARE_FIELDCATALOG
+*&---------------------------------------------------------------------*
+* Construir el catalog de campos del ALV. Este se construye condicionalemnte
+* dependiendo de la configuracion de la actividad
+*----------------------------------------------------------------------*
+FORM SUB_PREPARE_FIELDCATALOG.
+********** DOKNR - Documento***********.
+  X_FIELDCAT-COL_POS = 1.
+  X_FIELDCAT-FIELDNAME = 'DOKNR'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Documento'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** DOKAR - Cl.de documento***********.
+  X_FIELDCAT-COL_POS = 2.
+  X_FIELDCAT-FIELDNAME = 'DOKAR'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Cl.de documento'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** DOKTL - Sede***********.
+  X_FIELDCAT-COL_POS = 3.
+  X_FIELDCAT-FIELDNAME = 'DOKTL'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Sede'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** LEIHDAT - Fecha Prestamo***********.
+  X_FIELDCAT-COL_POS = 4.
+  X_FIELDCAT-FIELDNAME = 'LEIHDAT'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Fecha Prestamo'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** ENTLEIHER - Prestatario***********.
+  X_FIELDCAT-COL_POS = 5.
+  X_FIELDCAT-FIELDNAME = 'ENTLEIHER'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Prestatario'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** ENTZWTXT - Motivo***********.
+  X_FIELDCAT-COL_POS = 6.
+  X_FIELDCAT-FIELDNAME = 'ENTZWTXT'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Motivo'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** ARCHIV - UO.Archiv***********.
+  X_FIELDCAT-COL_POS = 7.
+  X_FIELDCAT-FIELDNAME = 'ARCHIV'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'UO.Archiv'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** STANDORT - Emplazamiento***********.
+  X_FIELDCAT-COL_POS = 8.
+  X_FIELDCAT-FIELDNAME = 'STANDORT'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Emplazamiento'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** PATNR - Paciente***********.
+  X_FIELDCAT-COL_POS = 9.
+  X_FIELDCAT-FIELDNAME = 'PATNR'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Paciente'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** PNAME - Nombre***********.
+  X_FIELDCAT-COL_POS = 10.
+  X_FIELDCAT-FIELDNAME = 'PNAME'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Nombre'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** ENTLEND - Fecha Final Prevista***********.
+  X_FIELDCAT-COL_POS = 11.
+  X_FIELDCAT-FIELDNAME = 'ENTLEND'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Fecha Final Prevista'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** DKTXT - Denominacion***********.
+  X_FIELDCAT-COL_POS = 12.
+  X_FIELDCAT-FIELDNAME = 'DKTXT'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Denominacion'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** STATUS - Status***********.
+  X_FIELDCAT-COL_POS = 13.
+  X_FIELDCAT-FIELDNAME = 'STATUS'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Status'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** STATUSTXT - Status***********.
+  X_FIELDCAT-COL_POS = 14.
+  X_FIELDCAT-FIELDNAME = 'STATUSTXT'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Status'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** LEMAHN - Ult. Reclamacion***********.
+  X_FIELDCAT-COL_POS = 15.
+  X_FIELDCAT-FIELDNAME = 'LEMAHN'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Ult. Reclamacion'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** ANZMAH - Cant.Reclam.***********.
+  X_FIELDCAT-COL_POS = 16.
+  X_FIELDCAT-FIELDNAME = 'ANZMAH'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Cant.Reclam.'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** GBDAT - F.Nacimiento***********.
+  X_FIELDCAT-COL_POS = 17.
+  X_FIELDCAT-FIELDNAME = 'GBDAT'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'F.Nacimiento'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** FALNR - Episodio***********.
+  X_FIELDCAT-COL_POS = 18.
+  X_FIELDCAT-FIELDNAME = 'FALNR'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Episodio'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** MR_ORGFORM - ***********.
+  X_FIELDCAT-COL_POS = 19.
+  X_FIELDCAT-FIELDNAME = 'MR_ORGFORM'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Forma organiz.'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** ORGFKB - ***********.
+  X_FIELDCAT-COL_POS = 20.
+  X_FIELDCAT-FIELDNAME = 'ORGFKB'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Den.brv.UO'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** MR_SCOPE - ***********.
+  X_FIELDCAT-COL_POS = 21.
+  X_FIELDCAT-FIELDNAME = 'MR_SCOPE'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Ámbito validez'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** BAUKB - ***********.
+  X_FIELDCAT-COL_POS = 22.
+  X_FIELDCAT-FIELDNAME = 'BAUKB'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Denom.brv.UE'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** MICROF - Microfilm***********.
+  X_FIELDCAT-COL_POS = 23.
+  X_FIELDCAT-FIELDNAME = 'MICROF'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Microfilm'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** ERDAT - Creado.En***********.
+  X_FIELDCAT-COL_POS = 24.
+  X_FIELDCAT-FIELDNAME = 'ERDAT'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = 'Creado.En'.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** ICN - ***********.
+  X_FIELDCAT-COL_POS = 25.
+  X_FIELDCAT-FIELDNAME = 'ICN'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = ''.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** SYM - ***********.
+  X_FIELDCAT-COL_POS = 26.
+  X_FIELDCAT-FIELDNAME = 'SYM'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = ''.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** EXCPT - ***********.
+  X_FIELDCAT-COL_POS = 27.
+  X_FIELDCAT-FIELDNAME = 'EXCPT'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = ''.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+********** BOX - ***********.
+  X_FIELDCAT-COL_POS = 28.
+  X_FIELDCAT-FIELDNAME = 'BOX'.
+  X_FIELDCAT-TABNAME = 'I_TAB'.
+  X_FIELDCAT-SELTEXT_M = ''.
+  APPEND X_FIELDCAT TO I_FIELDCAT.
+  CLEAR X_FIELDCAT.
+
+
+
+
+ENDFORM.                    " SUB_PREPARE_FIELDCATALOG
+*&---------------------------------------------------------------------*
+*&      Form  SUB_SELECT_RECORD
+*&---------------------------------------------------------------------*
+* Obtiene los registros de la base de datos y los pone en su estrutura
+* respectiva dependiendo de la configuracion de la actividad
+* este se usara mas adelante para entregar en el parametro t_outtab en
+* el modulo de funcion REUSE_ALV_GRID_DISPLAY
+*----------------------------------------------------------------------*
+FORM SUB_SELECT_RECORD.
+  SELECT  * FROM NDAE AS A
+  INNER JOIN NDOC AS B
+  ON A~MANDT = B~MANDT AND
+  A~DOKAR = B~DOKAR AND
+  A~DOKNR = B~DOKNR AND
+  A~DOKVR = B~DOKVR AND
+  A~DOKTL = B~DOKTL UP TO 10 ROWS
+  INTO CORRESPONDING FIELDS OF TABLE I_TAB.
+ENDFORM.                    " SUB_SELECT_RECORD
+*&---------------------------------------------------------------------*
+*&      Form  SUB_MODIFY_RECORDS
+*&---------------------------------------------------------------------*
+* Modifica la tabla con los resultados obtenidos de la base de datos
+* poniendole los iconos al status del la historia clinica
+*----------------------------------------------------------------------*
+FORM SUB_MODIFY_RECORDS.
+
+  LOOP AT I_TAB.
+    IF I_TAB-STATUS GT '1'.
+* Field icn of internal table is going to contain icon . For this column
+*icon_allowed is set in the field catalog table. For various icons,see
+* type pool <ICON>
+      I_TAB-ICN = ''.
+      MODIFY I_TAB TRANSPORTING ICN.
+    ENDIF.
+    IF I_TAB-STATUS GT '2'.
+* Field icn of internal table is going to contain symbol . For this
+* column symbol_allowed is set in the field catalog table. For various
+* icons,see type pool <SYMBOL>
+      I_TAB-SYM = 'N'.
+      MODIFY I_TAB TRANSPORTING SYM.
+    ENDIF.
+
+    IF I_TAB-STATUS GT '3'.
+* This field will contain lights , traffic signals : red.yellow,green
+* That this field will be used as a light will be specified in the
+* column of structure STRUCT_LAYOUT.
+      I_TAB-EXCPT = '1'.
+      MODIFY I_TAB TRANSPORTING EXCPT.
+    ENDIF.
+  ENDLOOP.
+
+ENDFORM.                    " SUB_MODIFY_RECORDS
+
+*&---------------------------------------------------------------------*
+*&      Form  SUB_DETERMINE_ALV_LAYOUT                                 *
+*&---------------------------------------------------------------------*
+* Define la presentacion visual general del ALV
+*----------------------------------------------------------------------*
+FORM SUB_DETERMINE_ALV_LAYOUT.
+
+* Field EXCPT will show the light signal
+  STRUCT_LAYOUT-LIGHTS_FIELDNAME       = 'EXCPT'.
+* Field BOS of the internal table will act as pushbutton and will appear
+* at the left of the grid display. User will press that to select a
+* record
+  STRUCT_LAYOUT-BOX_FIELDNAME          = 'BOX'.
+  STRUCT_LAYOUT-TOTALS_TEXT            = 'Totqty '.
+  STRUCT_LAYOUT-ZEBRA                  = 'X'.
+  STRUCT_LAYOUT-CONFIRMATION_PROMPT    = 'X'.
+  STRUCT_LAYOUT-DETAIL_TITLEBAR        = 'Detalles HCF'.
+  STRUCT_LAYOUT-NO_SUMCHOICE           = 'X'.
+  STRUCT_LAYOUT-TOTALS_ONLY            = ''.
+ENDFORM.                    " SUB_DETERMINE_ALV_LAYOUT
+*&---------------------------------------------------------------------*
+*&      Form  SUB_DETERMINE_SORT_SEQUENCE
+*&---------------------------------------------------------------------*
+* Defines the sort sequence of the report
+*----------------------------------------------------------------------*
+FORM SUB_DETERMINE_SORT_SEQUENCE.
+  X_SORT-SPOS = 1.                           " Sort order
+  X_SORT-FIELDNAME = 'DOKNR'.
+  X_SORT-TABNAME = 'I_TAB'.
+  X_SORT-UP = 'X'.
+*  X_SORT-SUBTOT = 'X'.                      " Sub total allowed
+
+  APPEND X_SORT TO IT_SORT.
+  CLEAR X_SORT.
+
+ENDFORM.                    " SUB_DETERMINE_SORT_SEQUENCE
+*&---------------------------------------------------------------------*
+*&      Form  SUB_SHOW_ALV_LIST
+*&---------------------------------------------------------------------*
+* Shows ALV list in grid form
+*----------------------------------------------------------------------*
+FORM SUB_SHOW_ALV_LIST.
+
+*  data: title type LVC_TITLE.
+*  title = 'hola'.
+
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+    EXPORTING
+* Name of the program
+      I_CALLBACK_PROGRAM       = V_REPID
+* title
+*     I_GRID_TITLE             = title
+* calls subroutine : PF_STATUS_SET
+      I_CALLBACK_PF_STATUS_SET = 'PF_STATUS_SET'
+* Calls subroutine : user_command
+      I_CALLBACK_USER_COMMAND  = 'USER_COMMAND'
+* Overall structure of the report
+      IS_LAYOUT                = STRUCT_LAYOUT
+* Passes the field catg internal table
+      IT_FIELDCAT              = I_FIELDCAT
+* Passws the sort sequence internal table
+      IT_SORT                  = IT_SORT
+      I_DEFAULT                = 'X'
+      I_SAVE                   = 'A'
+* Passes the internal table for variants
+      IS_VARIANT               = I_VARIANT1
+* fetches different events into internal table i_events
+      IT_EVENTS                = I_EVENTS[]
+    TABLES
+* Passes data table for ALV display
+      T_OUTTAB                 = I_TAB
+    EXCEPTIONS
+      PROGRAM_ERROR            = 1
+      OTHERS                   = 2.
+  IF SY-SUBRC <> 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+  ENDIF.
+ENDFORM.                    " SUB_SHOW_ALV_LIST
+
+*&---------------------------------------------------------------------*
+*&      Form  set_status
+*&---------------------------------------------------------------------*
+*  Form used to set the Custom pf-status of the List Display
+*----------------------------------------------------------------------*
+*  rt_extab :
+*----------------------------------------------------------------------*
+FORM PF_STATUS_SET USING I_RT_EXTAB TYPE SLIS_T_EXTAB.
+  DATA : X_EXTAB TYPE SLIS_EXTAB.
+
+  DATA: WA_HFCAC TYPE /SISS/ISHPM_HFCA.
+
+  SELECT SINGLE * FROM /SISS/ISHPM_HFCA
+  INTO CORRESPONDING FIELDS OF WA_HFCAC
+  WHERE HFCAC = HFCAC AND
+  EINRI = EINRI.
+
+  IF WA_HFCAC-REQUEST_BUTTON NE 'X'.
+    X_EXTAB-FCODE = 'SOLI'.
+    APPEND X_EXTAB TO I_RT_EXTAB.
+  ENDIF.
+
+  IF WA_HFCAC-BORROW_BUTTON NE 'X'.
+    X_EXTAB-FCODE = 'BORR'.
+    APPEND X_EXTAB TO I_RT_EXTAB.
+  ENDIF.
+
+  IF WA_HFCAC-TRANSFER_BUTTON NE 'X'.
+    X_EXTAB-FCODE = 'TRAN'.
+    APPEND X_EXTAB TO I_RT_EXTAB.
+  ENDIF.
+
+  IF WA_HFCAC-GET_BACK_BUTTON NE 'X'.
+    X_EXTAB-FCODE = 'GETD'.
+    APPEND X_EXTAB TO I_RT_EXTAB.
+  ENDIF.
+
+  IF WA_HFCAC-RETURN_BUTTON NE 'X'.
+    X_EXTAB-FCODE = 'RETU'.
+    APPEND X_EXTAB TO I_RT_EXTAB.
+  ENDIF.
+
+  IF WA_HFCAC-PRINTLAB_BUTTON NE 'X'.
+    X_EXTAB-FCODE = 'LABEL'.
+    APPEND X_EXTAB TO I_RT_EXTAB.
+  ENDIF.
+
+  IF WA_HFCAC-CREATE_BUTTON NE 'X'.
+    X_EXTAB-FCODE = 'CREA'.
+    APPEND X_EXTAB TO I_RT_EXTAB.
+  ENDIF.
+
+  IF WA_HFCAC-EDIT_BUTTON NE 'X'.
+    X_EXTAB-FCODE = 'ACTU'.
+    APPEND X_EXTAB TO I_RT_EXTAB.
+  ENDIF.
+
+* Pf-status STANDARD of program SAPLSALV is copied to ZSTANDARD of the
+* current program and the pushbutton for Information (okcode=&LFO) is
+* excluded
+  SET PF-STATUS 'STANDARD' EXCLUDING I_RT_EXTAB .
+
+ENDFORM.
+
+*&---------------------------------------------------------------------*
+*&      Form  user_command
+*&---------------------------------------------------------------------*
+*  Form used to handle USER_COMMAND events
+*----------------------------------------------------------------------*
+*  rf_ucomm: Function Code
+*  rs      : Internal Table containing the selection information.
+*----------------------------------------------------------------------*
+
+FORM USER_COMMAND USING RF_UCOMM LIKE SY-UCOMM
+                          RS TYPE SLIS_SELFIELD.
+  DATA : V_MBLNR LIKE MSEG-MBLNR.
+  CASE RF_UCOMM.
+
+    WHEN 'CREA'.
+      PERFORM SUB_CREATE_HFC.
+    WHEN 'ACTU'.
+      PERFORM SUB_UPDATE_HFC.
+    WHEN 'SOLI'.
+      PERFORM SUB_REQUEST_HFC.
+    WHEN 'BORR'.
+      PERFORM SUB_BORROW_HFC.
+    WHEN 'GETD'.
+      PERFORM SUB_GET_BACK_HFC.
+    WHEN 'TRAN'.
+      PERFORM SUB_TRANSFER_HFC.
+    WHEN 'RETU'.
+      PERFORM SUB_RETURN_HFC.
+    WHEN '&SEL'.
+      PERFORM SUB_SELECT_DOCUMENT.
+*   set parameter id 'MBN'  field  i_tab-mblnr.
+*   call transaction 'MB03'.
+
+* Ok code for double click is &IC1 for ALV report
+    WHEN '&IC1'.
+      PERFORM SUB_HOTSPOT.
+  ENDCASE.
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  SUB_HOTSPOT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_HOTSPOT.
+  MESSAGE I398(00) WITH 'Hello'.
+ENDFORM.                    " SUB_HOTSPOT
+*&---------------------------------------------------------------------*
+*&      Form  SUB_VARIANT_F4
+*&---------------------------------------------------------------------*
+* Display a list of various variants of the report when the
+* user presses F4 key in the variant field
+*----------------------------------------------------------------------*
+FORM SUB_VARIANT_F4.
+  I_VARIANT-REPORT = SY-REPID.
+* Utilising the name of the report , this function module will
+* search for a list of variants and will fetch the selected one into
+* the parameter field for variants
+  CALL FUNCTION 'REUSE_ALV_VARIANT_F4'
+    EXPORTING
+      IS_VARIANT         = I_VARIANT
+      I_SAVE             = 'A'
+      I_DISPLAY_VIA_GRID = 'X'
+    IMPORTING
+      ES_VARIANT         = I_VARIANT1
+    EXCEPTIONS
+      NOT_FOUND          = 1
+      PROGRAM_ERROR      = 2
+      OTHERS             = 3.
+  IF SY-SUBRC = 0.
+    P_VAR = I_VARIANT1-VARIANT.
+  ENDIF.
+ENDFORM.                    " SUB_VARIANT_F4
+*&---------------------------------------------------------------------*
+*&      Form  SUB_SELECT_DOCUMENT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_SELECT_DOCUMENT.
+  DATA : V_LINES TYPE I .
+
+  READ TABLE I_TAB WITH KEY BOX = 'X'.
+
+  SELECT *
+         FROM NDAE INTO CORRESPONDING FIELDS OF TABLE I_DOC
+         WHERE DOKNR = I_TAB-DOKNR.
+
+  IF SY-SUBRC EQ 0 .
+    CALL FUNCTION 'REUSE_ALV_FIELDCATALOG_MERGE'
+      EXPORTING
+        I_PROGRAM_NAME         = V_REPID
+        I_INTERNAL_TABNAME     = 'I_DOC'
+        I_STRUCTURE_NAME       = 'NDAE'
+      CHANGING
+        CT_FIELDCAT            = I_FIELDCAT1
+      EXCEPTIONS
+        INCONSISTENT_INTERFACE = 1
+        PROGRAM_ERROR          = 2
+        OTHERS                 = 3.
+
+    IF SY-SUBRC <> 0.
+      MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+            WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+    ENDIF.
+
+    CLEAR STRUCT_LAYOUT1.
+    STRUCT_LAYOUT1-COLWIDTH_OPTIMIZE  = 'X'.
+    REFRESH IT_SORT.
+    CLEAR IT_SORT.
+
+    CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+      EXPORTING
+        I_CALLBACK_PROGRAM = V_REPID
+        I_GRID_TITLE       = 'Detalles Linea'
+        IS_LAYOUT          = STRUCT_LAYOUT1
+        IT_FIELDCAT        = I_FIELDCAT1
+        I_STRUCTURE_NAME   = 'NDAE'
+        I_DEFAULT          = 'X'
+        I_SAVE             = 'A'
+      TABLES
+        T_OUTTAB           = I_DOC
+      EXCEPTIONS
+        PROGRAM_ERROR      = 1
+        OTHERS             = 2.
+    IF SY-SUBRC <> 0.
+      MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+    ENDIF.
+  ENDIF.
+ENDFORM.                    " SUB_SELECT_DOCUMENT
+*&---------------------------------------------------------------------*
+*&      Form  SUB_COMMENT_BUILD
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      -->P_I_LIST_TOP_OF_PAGE  text
+*----------------------------------------------------------------------*
+FORM SUB_COMMENT_BUILD USING   I_TOP_OF_PAGE TYPE SLIS_T_LISTHEADER.
+  DATA: LS_LINE TYPE SLIS_LISTHEADER.
+  DATA ACTXT TYPE /SISS/AATXT.
+
+  SELECT SINGLE ACTXT FROM /SISS/ISHPM_HFCA
+  INTO ACTXT
+  WHERE HFCAC = HFCAC.
+
+***Header
+  CLEAR LS_LINE.
+  LS_LINE-TYP  = 'H'.
+* LS_LINE-KEY: not used for this type
+  LS_LINE-INFO = ACTXT.
+  APPEND LS_LINE TO I_TOP_OF_PAGE.
+
+***Selection
+  CLEAR LS_LINE.
+  LS_LINE-TYP  = 'S'.
+  LS_LINE-KEY  = 'Campo 1'.
+  LS_LINE-INFO = 'Carreta del campo que qyuera ponerle a esto'.
+  APPEND LS_LINE TO I_TOP_OF_PAGE.
+  LS_LINE-KEY  = 'Campo 2'.
+  LS_LINE-INFO = 'Carreta adicional para el otro campo y se pueden poner muchos campos mas'.
+  APPEND LS_LINE TO I_TOP_OF_PAGE.
+
+***Action
+  CLEAR LS_LINE.
+
+ENDFORM.                    " SUB_COMMENT_BUILD
+*&---------------------------------------------------------------------*
+*&      Form  SUB_EVENTTAB_BUILD
+*&---------------------------------------------------------------------*
+* Defines the event table
+*----------------------------------------------------------------------*
+FORM SUB_EVENTTAB_BUILD USING L_EVENTS TYPE SLIS_T_EVENT.
+  DATA: LS_EVENT TYPE SLIS_ALV_EVENT.
+* Get the different events of the ALV
+  CALL FUNCTION 'REUSE_ALV_EVENTS_GET'
+    EXPORTING
+      I_LIST_TYPE = 0
+    IMPORTING
+      ET_EVENTS   = L_EVENTS.
+* Search the top of page events
+  READ TABLE L_EVENTS WITH KEY NAME = SLIS_EV_TOP_OF_PAGE INTO LS_EVENT.
+  IF SY-SUBRC = 0.
+    MOVE 'TOP_OF_PAGE' TO LS_EVENT-FORM.
+    APPEND LS_EVENT TO L_EVENTS.
+  ENDIF.
+ENDFORM.                    " SUB_EVENTTAB_BUILD
+
+*---------------------------------------------------------------------*
+*       FORM TOP_OF_PAGE                                              *
+*---------------------------------------------------------------------*
+* When TOP-OF-PAGE will be fired , this event will be called and it
+* will use the contents of i_list_top_of_page for output in the header
+*---------------------------------------------------------------------*
+FORM TOP_OF_PAGE.
+
+  CALL FUNCTION 'REUSE_ALV_COMMENTARY_WRITE'
+    EXPORTING
+*     I_LOGO             = 'ENJOYSAP_LOGO'
+      IT_LIST_COMMENTARY = I_LIST_TOP_OF_PAGE.
+
+ENDFORM.
+
+*&---------------------------------------------------------------------*
+*&      Form  SUB_CHECK_FIELD_COMPLETION
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_CHECK_FIELD_COMPLETION USING RC.
+
+  IF HFCAC = ''.
+    MESSAGE ID '/SISS/HFCMSG1' TYPE 'S' NUMBER '003' DISPLAY LIKE 'E'.
+    RC = '1'.
+    RETURN.
+  ENDIF.
+
+  IF EINRI = ''.
+    MESSAGE ID '/SISS/HFCMSG1' TYPE 'S' NUMBER '004' DISPLAY LIKE 'E'.
+    RC = '1'.
+    RETURN.
+  ENDIF.
+
+  IF SEDE = ''.
+    MESSAGE ID '/SISS/HFCMSG1' TYPE 'S' NUMBER '005' DISPLAY LIKE 'E'.
+    RC = '1'.
+    RETURN.
+  ENDIF.
+
+  RC = '0'.
+
+ENDFORM.
+
+*AT SELECTION-SCREEN ON P_VAR.
+** Once the user has entered variant, check about its existence
+*  PERFORM SUB_CHECK_PVAR.
+
+*AT SELECTION-SCREEN ON VALUE-REQUEST FOR P_VAR.
+** Display a list of various variants of the report when the
+** user presses F4 key in the variant field
+*  PERFORM SUB_VARIANT_F4.
+*&---------------------------------------------------------------------*
+*&      Form  SUB_CREATE_HFC
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_CREATE_HFC .
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  SUB_UPDATE_HFC
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_UPDATE_HFC .
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  SUB_REQUEST_HFC
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_REQUEST_HFC .
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  SUB_BORROW_HFC
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_BORROW_HFC .
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  SUB_GET_BACK_HFC
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_GET_BACK_HFC .
+
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  SUB_TRANSFER_HFC
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_TRANSFER_HFC .
+BREAK-POINT.
+ENDFORM.
+*&---------------------------------------------------------------------*
+*&      Form  SUB_RETURN_HFC
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM SUB_RETURN_HFC .
+
+ENDFORM.
