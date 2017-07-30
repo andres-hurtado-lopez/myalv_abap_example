@@ -1,0 +1,125 @@
+*&---------------------------------------------------------------------*
+*& Include /SISS/ISHPM_HFC_MANAGER_TOP                       Report /SISS/ISHPM_HFC_MANAGER
+*&
+*&---------------------------------------------------------------------*
+REPORT /SISS/ISHPM_HFC_MANAGER.
+
+* __     __                 _           _       _
+* \ \   / /   __ _   _ __  (_)   __ _  | |__   | |   ___   ___
+*  \ \ / /   / _` | | '__| | |  / _` | | '_ \  | |  / _ \ / __|
+*   \ V /   | (_| | | |    | | | (_| | | |_) | | | |  __/ \__ \
+*    \_/     \__,_| |_|    |_|  \__,_| |_.__/  |_|  \___| |___/
+*
+
+
+*********************************
+* Declaracion de variables
+*
+* Pool de tipos para poder usar ALV
+*********************************
+TYPE-POOLS: SLIS.
+**************************
+* Variable para pasar el nombre
+* del programa de control al ALV
+**************************
+DATA: V_REPID LIKE SY-REPID .
+******************************
+* Variable para pasar la estructura
+* total del reporte
+*********************************
+DATA:  STRUCT_LAYOUT    TYPE SLIS_LAYOUT_ALV.
+DATA:  STRUCT_LAYOUT1   TYPE SLIS_LAYOUT_ALV.
+
+*********************************************
+* Tabla interna para capturar eventos
+* realizados en el ALV
+*********************************************
+DATA : I_EVENTS TYPE SLIS_T_EVENT.
+***************************************************
+* Tabla con catalogo de campos a ser mostrados
+* en el ALV
+****************************************************
+DATA: I_FIELDCAT TYPE  SLIS_T_FIELDCAT_ALV.
+DATA : X_FIELDCAT TYPE SLIS_FIELDCAT_ALV.
+
+DATA:  I_FIELDCAT1 TYPE  SLIS_T_FIELDCAT_ALV.
+DATA : X_FIELDCAT1 TYPE SLIS_FIELDCAT_ALV.
+***********************************************
+* Tabla para controlar la secuencia de
+* ordenamiento
+**********************************************
+DATA : IT_SORT TYPE SLIS_T_SORTINFO_ALV.
+DATA : X_SORT TYPE SLIS_SORTINFO_ALV.
+
+***********************************
+* Tabla interna con la informacion
+*de cabecera del ALV
+************************************
+DATA : I_LIST_TOP_OF_PAGE TYPE SLIS_T_LISTHEADER.
+
+*****************************************
+* Estructuras para mostrar las variantes
+*****************************************
+DATA : I_VARIANT  LIKE DISVARIANT,
+       I_VARIANT1 LIKE DISVARIANT.
+
+****************************************
+* Tabla interna donde llegan los datos
+****************************************
+DATA: BEGIN OF I_TAB OCCURS 0,
+        DOKNR      TYPE DOKNR,
+        DOKAR      TYPE DOKAR,
+        DOKTL      TYPE DOKTL,
+        LEIHDAT    TYPE ISH_LEIDAT,
+        ENTLEIHER  TYPE ENTLEIHNR,
+        ENTZWTXT   TYPE ENTLZWTXT,
+        ARCHIV     TYPE ARCHIV_ID,
+        STANDORT   TYPE ISH_ARCHST,
+        PATNR      TYPE PATNR,
+        PNAME      TYPE RI_NAME,
+        ENTLEND    TYPE ISH_ENTLEN,
+        DKTXT      TYPE DKTXT,
+        STATUS     TYPE ISH_STATUS,
+        STATUSTXT  TYPE ISH_BSTATUSTXT,
+        LEMAHN     TYPE ISH_AKM2DT,
+        ANZMAH     TYPE ISH_ANZMAH,
+        GBDAT      TYPE RI_GBDAT,
+        FALNR      TYPE FALNR,
+        MR_ORGFORM TYPE ISH_MR_ORGFORM,
+        ORGFKB     TYPE ORGKB,
+        MR_SCOPE   TYPE ISH_MR_SCOPE,
+        BAUKB      TYPE BAUKB,
+        MICROF     TYPE ISH_MICROF,
+        ERDAT      TYPE RI_ERDAT,
+        ICN(4)     TYPE C,
+        SYM(4)     TYPE C,
+        EXCPT(2)   TYPE C,
+        BOX(1),
+      END OF I_TAB.
+
+*EJECT
+DATA : BEGIN OF I_DOC OCCURS 0 .
+        INCLUDE STRUCTURE NDAE.
+DATA : END OF I_DOC.
+
+
+*****************************
+* Variables para lista desplegable
+* de actividades
+*****************************
+
+DATA: NAME  TYPE VRM_ID,
+      LIST  TYPE VRM_VALUES,
+      VALUE LIKE LINE OF LIST,
+      P_VAR LIKE DISVARIANT-VARIANT.
+
+*********************************
+* Objeto de control de las HCF
+* y estructuras de control
+*********************************
+DATA:
+  HFCC   TYPE REF TO /SISS/HFC_CONTROLLER,
+  RESULT TYPE BAPIRET2,
+  RC.
+
+CREATE OBJECT HFCC.
